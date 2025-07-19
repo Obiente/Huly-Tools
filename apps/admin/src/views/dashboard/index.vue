@@ -20,6 +20,7 @@
           :icon="stat.icon"
           :trend="stat.trend"
           :loading="statsLoading"
+          :color="stat.color"
         />
       </div>
     </section>
@@ -44,8 +45,8 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useDashboard } from './composables/useDashboard'
 import StatsCard from '@/components/ui/StatsCard.vue'
-import SystemHealthCard from '@/components/SystemHealthCard.vue'
-import RecentActivityCard from '@/components/RecentActivityCard.vue'
+import SystemHealthCard from './components/SystemHealthCard.vue'
+import RecentActivityCard from './components/RecentActivityCard.vue'
 
 const {
   stats,

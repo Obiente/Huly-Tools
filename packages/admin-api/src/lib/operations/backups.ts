@@ -3,14 +3,15 @@ import type { Backup } from '@huly-tools/types'
 
 export class BackupOperations {
   private db: DatabaseConnection
-
-  constructor(db: DatabaseConnection) {
-    this.db = db
+  private backups: ReturnType<DatabaseConnection['getDb']>
+  constructor(databaseConnection: DatabaseConnection) {
+    this.db = databaseConnection
+    this.backups = this.db.getDb("backups")
   }
 
   async listBackups(): Promise<Backup[]> {
-    const hulyDb = this.db.getHulyDb()
-    const backups = await hulyDb.collection('backups').find({}).toArray()
+
+    const backups = await this.backups.collection('backups').find({}).toArray()
     
     return backups.map(backup => ({
       _id: backup._id.toString(),
@@ -23,10 +24,10 @@ export class BackupOperations {
   }
 
   async createBackup(workspaceId: string): Promise<Backup> {
-    const hulyDb = this.db.getHulyDb()
+    
     
     // Check if workspace exists
-    const workspace = await hulyDb.collection('workspaces').findOne({ _id: workspaceId } as any)
+    const workspace = await this.backups.collection('workspaces').findOne({ _id: workspaceId } as any)
     if (!workspace) {
       throw new Error('Workspace not found')
     }
@@ -40,7 +41,7 @@ export class BackupOperations {
       status: 'pending'
     }
 
-    await hulyDb.collection('backups').insertOne(backup as any)
+    await this.backups.collection('backups').insertOne(backup as any)
     
     // Simulate backup completion
     setTimeout(async () => {
@@ -51,8 +52,8 @@ export class BackupOperations {
   }
 
   async getBackup(backupId: string): Promise<Backup | null> {
-    const hulyDb = this.db.getHulyDb()
-    const backup = await hulyDb.collection('backups').findOne({ _id: backupId } as any)
+    
+    const backup = await this.backups.collection('backups').findOne({ _id: backupId } as any)
     
     if (!backup) return null
 
@@ -78,8 +79,8 @@ export class BackupOperations {
   }
 
   async deleteBackup(backupId: string): Promise<void> {
-    const hulyDb = this.db.getHulyDb()
-    const result = await hulyDb.collection('backups').deleteOne({ _id: backupId } as any)
+    
+    const result = await this.backups.collection('backups').deleteOne({ _id: backupId } as any)
     
     if (result.deletedCount === 0) {
       throw new Error('Backup not found')
@@ -87,8 +88,8 @@ export class BackupOperations {
   }
 
   async listWorkspaceBackups(workspaceId: string): Promise<Backup[]> {
-    const hulyDb = this.db.getHulyDb()
-    const backups = await hulyDb.collection('backups').find({ workspaceId }).toArray()
+    
+    const backups = await this.backups.collection('backups').find({ workspaceId }).toArray()
     
     return backups.map(backup => ({
       _id: backup._id.toString(),
@@ -101,11 +102,11 @@ export class BackupOperations {
   }
 
   private async updateBackupStatus(backupId: string, status: Backup['status'], size?: number): Promise<void> {
-    const hulyDb = this.db.getHulyDb()
+    
     const updates: any = { status }
     if (size) updates.size = size
     
-    await hulyDb.collection('backups').updateOne(
+    await this.backups.collection('backups').updateOne(
       { _id: backupId } as any,
       { $set: updates }
     )

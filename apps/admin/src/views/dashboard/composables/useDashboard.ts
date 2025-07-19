@@ -2,6 +2,7 @@ import { computed, ref } from "vue";
 import type { Ref } from "vue";
 
 export interface DashboardStats {
+  color: "blue" | "green" | "purple" | "orange";
   id: string;
   title: string;
   value: number | string;
@@ -48,6 +49,7 @@ export function useDashboard() {
       title: "Total Users",
       value: 1234,
       icon: "users",
+      color: "blue",
       trend: { value: 12, direction: "up", isPositive: true },
     },
     {
@@ -55,6 +57,7 @@ export function useDashboard() {
       title: "Active Workspaces",
       value: 56,
       icon: "building",
+      color: "green",
       trend: { value: 3, direction: "up", isPositive: true },
     },
     {
@@ -62,12 +65,14 @@ export function useDashboard() {
       title: "Storage Used",
       value: "45.2 GB",
       icon: "archive",
+      color: "purple",
     },
     {
       id: "uptime",
       title: "System Uptime",
       value: "99.9%",
       icon: "server",
+      color: "orange",
       trend: { value: 0.1, direction: "up", isPositive: true },
     },
   ];

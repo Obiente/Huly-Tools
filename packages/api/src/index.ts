@@ -112,7 +112,7 @@ app.get("/api/dashboard", async (req, res, next) => {
       storageUsage: formatStorageUsage(stats.storageSize || 0),
       memoryUsagePercent
     }
-
+    console.log("System Health:", systemHealth)
     res.json({
       stats,
       recentBackups,

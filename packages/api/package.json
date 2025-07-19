@@ -1,5 +1,5 @@
 {
-  "name": "@huly-tools/admin-api",
+  "name": "@huly-tools/api",
   "version": "1.0.0",
   "description": "Admin API service for Huly platform management",
   "main": "dist/index.js",

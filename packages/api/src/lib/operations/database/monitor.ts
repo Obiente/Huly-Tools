@@ -11,7 +11,7 @@ export class DatabaseMonitor {
 
   constructor(getDb: (name?: string) => Db) {
     this.db = getDb()
-    this.accountsDb = getDb('accounts')
+    this.accountsDb = getDb('account')
     this.hulyDb = getDb('huly')
   }
 

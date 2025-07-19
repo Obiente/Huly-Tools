@@ -1,0 +1,8 @@
+{
+  "name": "@huly-tools/cli",
+  "version": "0.0.1",
+  "scripts": {
+    "zig-dev": "./zig-out/bin/cli",
+    "build": "zig build"
+  }
+}

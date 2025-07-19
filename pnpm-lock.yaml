@@ -48,7 +48,9 @@ importers:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
 
-  packages/admin-api:
+  apps/cli: {}
+
+  packages/api:
     dependencies:
       '@hcengineering/account-client':
         specifier: ^0.7.147
@@ -80,6 +82,9 @@ importers:
       helmet:
         specifier: ^7.2.0
         version: 7.2.0
+      hono:
+        specifier: ^4.8.5
+        version: 4.8.5
       mongodb:
         specifier: ^6.10.0
         version: 6.17.0
@@ -2239,6 +2244,10 @@ packages:
   helmet@7.2.0:
     resolution: {integrity: sha512-ZRiwvN089JfMXokizgqEPXsl2Guk094yExfoDXR0cBYWxtBbaSww/w+vT4WEJsBW2iTUi1GgZ6swmoug3Oy4Xw==}
     engines: {node: '>=16.0.0'}
+
+  hono@4.8.5:
+    resolution: {integrity: sha512-Up2cQbtNz1s111qpnnECdTGqSIUIhZJMLikdKkshebQSEBcoUKq6XJayLGqSZWidiH0zfHRCJqFu062Mz5UuRA==}
+    engines: {node: '>=16.9.0'}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -6344,6 +6353,8 @@ snapshots:
       space-separated-tokens: 2.0.2
 
   helmet@7.2.0: {}
+
+  hono@4.8.5: {}
 
   hookable@5.5.3: {}
 

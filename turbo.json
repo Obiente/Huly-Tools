@@ -19,7 +19,17 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["^dev"]
+    },
+    "@huly-tools/cli#zig-dev": {
+      "cache": true,
+      "interruptible": true,
+      "persistent": true,
+      "dependsOn": ["@huly-tools/cli#build"]
+    },
+    "@huly-tools/cli#build": {
+      "outputs": ["./zig-out/bin/cli"]
     }
   }
 }

@@ -1,0 +1,63 @@
+---
+
+const { 
+  id,
+  onSubmit = ''
+} = Astro.props;
+---
+
+<form id={id} onsubmit={onSubmit}>
+  <slot />
+</form>
+
+<style>
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--theme-caption-color, #FFF);
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--theme-divider-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--extra-small-BorderRadius, 0.25rem);
+    background-color: var(--theme-bg-color, #14141F);
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    font-size: 0.875rem;
+    transition: border-color 0.15s ease;
+  }
+
+  .form-group input[type="text"]:focus,
+  .form-group input[type="email"]:focus,
+  .form-group input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary-button-default, #2c23d5);
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+
+  .checkbox-text {
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    font-size: 0.875rem;
+  }
+</style>

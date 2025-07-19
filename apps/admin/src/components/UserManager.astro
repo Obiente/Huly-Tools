@@ -1,0 +1,139 @@
+---
+const { users, workspaces } = Astro.props;
+---
+
+<script is:inline define:vars={{ users, workspaces }}>
+  class UserManager {
+    constructor() {
+      this.currentUser = null;
+      this.users = users;
+      this.workspaces = workspaces;
+    }
+
+    editUser(userId) {
+      this.currentUser = this.users.find(u => u.id === userId) || null;
+      if (this.currentUser) {
+        const nameInput = document.getElementById('userName');
+        const emailInput = document.getElementById('userEmail');
+        const adminCheckbox = document.getElementById('userIsAdmin');
+        
+        if (nameInput) nameInput.value = this.currentUser.name;
+        if (emailInput) emailInput.value = this.currentUser.email;
+        if (adminCheckbox) adminCheckbox.checked = this.currentUser.isAdmin;
+        
+        window.openModal('editUserModal');
+      }
+    }
+
+    manageWorkspaces(userId) {
+      this.currentUser = this.users.find(u => u.id === userId) || null;
+      if (this.currentUser) {
+        document.querySelectorAll('#workspacesModal input[type="checkbox"]').forEach(cb => {
+          cb.checked = false;
+        });
+        
+        this.currentUser.workspaces.forEach(workspaceName => {
+          const workspace = this.workspaces.find(w => w.name === workspaceName);
+          if (workspace) {
+            const checkbox = document.querySelector(`#workspacesModal input[value="${workspace.id}"]`);
+            if (checkbox) checkbox.checked = true;
+          }
+        });
+        
+        window.openModal('workspacesModal');
+      }
+    }
+
+    resetPassword(userId) {
+      this.currentUser = this.users.find(u => u.id === userId) || null;
+      if (this.currentUser) {
+        const newPasswordInput = document.getElementById('newPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const forceChangeCheckbox = document.getElementById('forcePasswordChange');
+        
+        if (newPasswordInput) newPasswordInput.value = '';
+        if (confirmPasswordInput) confirmPasswordInput.value = '';
+        if (forceChangeCheckbox) forceChangeCheckbox.checked = false;
+        
+        window.openModal('resetPasswordModal');
+      }
+    }
+
+    deleteUser(userId) {
+      if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+        console.log('Delete user:', userId);
+      }
+    }
+
+    handleEditUser(event) {
+      event.preventDefault();
+      
+      const nameInput = document.getElementById('userName');
+      const emailInput = document.getElementById('userEmail');
+      const adminCheckbox = document.getElementById('userIsAdmin');
+      
+      if (this.currentUser && nameInput && emailInput && adminCheckbox) {
+        console.log('Save user changes:', {
+          id: this.currentUser.id,
+          name: nameInput.value,
+          email: emailInput.value,
+          isAdmin: adminCheckbox.checked
+        });
+        window.closeModal('editUserModal');
+      }
+    }
+
+    handleResetPassword(event) {
+      event.preventDefault();
+      
+      const newPasswordInput = document.getElementById('newPassword');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const forceChangeCheckbox = document.getElementById('forcePasswordChange');
+      
+      if (newPasswordInput && confirmPasswordInput && forceChangeCheckbox) {
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        if (newPassword !== confirmPassword) {
+          alert('Passwords do not match');
+          return;
+        }
+        
+        if (this.currentUser) {
+          console.log('Reset password:', {
+            userId: this.currentUser.id,
+            forceChange: forceChangeCheckbox.checked
+          });
+          window.closeModal('resetPasswordModal');
+        }
+      }
+    }
+
+    init() {
+      document.querySelectorAll('table tbody tr').forEach((row, index) => {
+        const userId = this.users[index].id;
+        const actions = row.querySelectorAll('.hulyTableRowAction');
+        
+        if (actions[0]) actions[0].addEventListener('click', () => this.editUser(userId));
+        if (actions[1]) actions[1].addEventListener('click', () => this.manageWorkspaces(userId));
+        if (actions[2]) actions[2].addEventListener('click', () => this.resetPassword(userId));
+        if (actions[3]) actions[3].addEventListener('click', () => this.deleteUser(userId));
+      });
+
+      const editUserForm = document.getElementById('editUserForm');
+      const resetPasswordForm = document.getElementById('resetPasswordForm');
+      
+      if (editUserForm) {
+        editUserForm.addEventListener('submit', (e) => this.handleEditUser(e));
+      }
+      
+      if (resetPasswordForm) {
+        resetPasswordForm.addEventListener('submit', (e) => this.handleResetPassword(e));
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new UserManager().init();
+  });
+</script>

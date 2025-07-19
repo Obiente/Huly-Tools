@@ -1,0 +1,47 @@
+---
+const { 
+  id,
+  name,
+  label,
+  checked = false
+} = Astro.props;
+---
+
+<div class="form-group">
+  <label class="checkbox-label" for={id}>
+    <input 
+      type="checkbox" 
+      id={id} 
+      name={name} 
+      checked={checked}
+    />
+    <span class="checkbox-text">{label}</span>
+  </label>
+</div>
+
+<style>
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 1.125rem;
+    height: 1.125rem;
+    cursor: pointer;
+    accent-color: var(--primary-button-default, #2c23d5);
+  }
+
+  .checkbox-text {
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+</style>

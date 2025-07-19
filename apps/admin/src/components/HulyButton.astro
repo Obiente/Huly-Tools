@@ -1,12 +1,13 @@
 ---
-// HulyButton.astro: Button component matching Huly's design system
+
 const { 
   kind = 'secondary', 
   size = 'medium', 
   label,
   icon,
   disabled = false,
-  type = 'button'
+  type = 'button',
+  onclick
 } = Astro.props;
 
 const baseClasses = 'hulyButton';
@@ -19,7 +20,7 @@ const sizeClass = size === 'large' ? 'large' :
 
 const classes = `${baseClasses} ${kindClass} ${sizeClass} type-button`;
 ---
-<button class={classes} {disabled} {type}>
+<button class={classes} {disabled} {type} onclick={onclick}>
   {icon && (
     <div class="btn-icon">
       <!-- Icon would be rendered here -->
@@ -58,6 +59,7 @@ const classes = `${baseClasses} ${kindClass} ${sizeClass} type-button`;
   .hulyButton.medium {
     height: 2rem;
     padding: 0 1rem;
+    min-width: 80px;
   }
 
   .hulyButton.small {
@@ -83,13 +85,14 @@ const classes = `${baseClasses} ${kindClass} ${sizeClass} type-button`;
 
   .hulyButton.secondary {
     background-color: transparent;
-    color: var(--theme-content-color, #525252);
-    border-color: var(--theme-divider-color, #E5E5E5);
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    border-color: var(--theme-divider-color, rgba(255, 255, 255, 0.2));
   }
 
   .hulyButton.secondary:hover:not(:disabled) {
-    background-color: var(--theme-bg-accent-color, #F5F5F5);
-    border-color: var(--theme-divider-color, #D4D4D4);
+    background-color: var(--theme-bg-accent-color, rgba(255, 255, 255, 0.04));
+    border-color: var(--theme-divider-color, rgba(255, 255, 255, 0.3));
+    color: var(--theme-caption-color, #FFF);
   }
 
   .hulyButton.tertiary {

@@ -1,0 +1,47 @@
+---
+const { title, description, href, buttonLabel } = Astro.props;
+---
+
+<div class="card">
+  <h2 class="title">{title}</h2>
+  <p class="description">{description}</p>
+  <a href={href} class="button-link">
+    <slot />
+  </a>
+</div>
+
+<style>
+  .card {
+    background-color: var(--theme-card-color, #14141F);
+    border: 1px solid var(--theme-divider-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--medium-BorderRadius, 0.5rem);
+    padding: 1.5rem;
+    box-shadow: var(--theme-card-shadow, 0 4px 12px 0 rgba(0, 0, 0, 0.4));
+    transition: all 0.2s ease;
+  }
+
+  .card:hover {
+    background-color: var(--theme-card-elevated-color, #1F1F2C);
+    transform: translateY(-2px);
+    box-shadow: var(--theme-card-shadow-hover, 0 6px 20px 0 rgba(0, 0, 0, 0.5));
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--theme-caption-color, #FFF);
+    margin: 0 0 1rem 0;
+  }
+
+  .description {
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    margin: 0 0 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .button-link {
+    text-decoration: none;
+    display: inline-block;
+  }
+</style>

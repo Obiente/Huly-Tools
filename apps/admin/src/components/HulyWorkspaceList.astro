@@ -1,0 +1,65 @@
+---
+const { 
+  workspaces = [],
+  userWorkspaces = []
+} = Astro.props;
+---
+
+<p class="modal-description">Select workspaces this user has access to:</p>
+<div class="workspace-list">
+  {workspaces.map(workspace => (
+    <label class="workspace-item" for={`workspace-${workspace.id}`}>
+      <input 
+        type="checkbox" 
+        id={`workspace-${workspace.id}`}
+        name="workspaces" 
+        value={workspace.id}
+        checked={userWorkspaces.includes(workspace.name)}
+      />
+      <span class="workspace-name">{workspace.name}</span>
+    </label>
+  ))}
+</div>
+
+<style>
+  .modal-description {
+    margin: 0 0 1rem 0;
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    font-size: 0.875rem;
+  }
+
+  .workspace-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .workspace-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem;
+    border: 1px solid var(--theme-divider-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--extra-small-BorderRadius, 0.25rem);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .workspace-item:hover {
+    background-color: var(--theme-bg-accent-color, rgba(255, 255, 255, 0.04));
+    border-color: var(--theme-divider-color, rgba(255, 255, 255, 0.2));
+  }
+
+  .workspace-item input[type="checkbox"] {
+    width: 1.125rem;
+    height: 1.125rem;
+    cursor: pointer;
+    accent-color: var(--primary-button-default, #2c23d5);
+  }
+
+  .workspace-name {
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+</style>

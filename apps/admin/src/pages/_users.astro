@@ -1,0 +1,8 @@
+---
+import DashboardLayout from '../layouts/Layout.astro'
+import UsersView from '../views/users/_index.vue'
+---
+
+<DashboardLayout title="Users">
+  <UsersView client:load />
+</DashboardLayout>

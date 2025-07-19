@@ -1,5 +1,5 @@
-import { Backup } from "./backup.ts";
-import { Stats } from "./stats.ts";
+import { Backup } from "./backup";
+import { Stats } from "./stats";
 
 
 export interface RecentActivity {

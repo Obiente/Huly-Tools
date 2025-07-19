@@ -1,7 +1,5 @@
 import { Hono } from "hono";
-import { HulyConnection } from "../lib/hulyConnection.ts";
-
-declare const hulyConnection: HulyConnection;
+import { hulyConnection } from "../main.ts";
 
 const accounts = new Hono();
 
@@ -9,6 +7,7 @@ const accounts = new Hono();
 accounts.get("/", async (c) => {
   try {
     const result = await hulyConnection.listAccounts();
+    console.log("Accounts fetched successfully:", result);
     return c.json(result);
   } catch (error) {
     return c.json({ error: String(error) }, 500);

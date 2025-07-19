@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Notification } from '@/composables/useUI'
+import type { Notification } from '@composables/useUI'
 
 defineProps<{ notifications: Notification[] }>()
 defineEmits(['remove'])

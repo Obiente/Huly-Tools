@@ -63,15 +63,15 @@
 </template>
 
 <script setup lang="ts">
-import { useBackups } from '@/composables/useBackups'
-import { useBackupSchedule } from '@/composables/useBackupSchedule'
-import { useRestoreModal } from '@/composables/useRestoreModal'
-import BackupsTable from '@/components/BackupsTable.vue'
-import BackupScheduleSettings from '@/components/BackupScheduleSettings.vue'
-import BackupStatusIndicator from '@/components/BackupStatusIndicator.vue'
-import RestoreModal from '@/components/RestoreModal.vue'
-import ActionButton from '@/components/ui/ActionButton.vue'
-import RefreshButton from '@/components/ui/RefreshButton.vue'
+import { useBackups } from '@composables/useBackups'
+import { useBackupSchedule } from '@composables/useBackupSchedule'
+import { useRestoreModal } from '@composables/useRestoreModal'
+import BackupsTable from '@components/BackupsTable.vue'
+import BackupScheduleSettings from '@components/BackupScheduleSettings.vue'
+import BackupStatusIndicator from '@components/BackupStatusIndicator.vue'
+import RestoreModal from '@components/RestoreModal.vue'
+import ActionButton from '@components/ui/ActionButton.vue'
+import RefreshButton from '@components/ui/RefreshButton.vue'
 
 const {
   backups,

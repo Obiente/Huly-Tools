@@ -6,7 +6,7 @@
           Dashboard
         </h1>
         <p class="text-gray-600 dark:text-gray-300">
-          Welcome to the Huly Admin Dashboard
+          A quick overview of your system's health and recent activity.
         </p>
       </span>
       <LastUpdated class="self-end" />
@@ -42,11 +42,11 @@
 
 <script setup lang="ts">
   import { onMounted, onUnmounted } from "vue";
-  import { useDashboard } from "@/composables/useDashboard";
-  import StatsCard from "@/components/ui/StatsCard.vue";
-  import SystemHealthCard from "@/components/dashboard/SystemHealthCard.vue";
-  import RecentActivityCard from "@/components/dashboard/RecentActivityCard.vue";
-  import LastUpdated from "@/components/ui/LastUpdated.vue";
+  import { useDashboard } from "@composables/useDashboard";
+  import StatsCard from "@components/ui/StatsCard.vue";
+  import SystemHealthCard from "@components/dashboard/SystemHealthCard.vue";
+  import RecentActivityCard from "@components/dashboard/RecentActivityCard.vue";
+  import LastUpdated from "@components/ui/LastUpdated.vue";
 
   const {
     stats,

@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 
 import { HulyConnection } from "./lib/hulyConnection.ts";
 import workspaces from "./routes/workspaces.ts";
+import accounts from "./routes/accounts.ts";
 
 const port = Number(Deno.env.get("PORT")) || 3001;
 export const hulyConnection = new HulyConnection({
@@ -98,6 +99,7 @@ app.get("/api/dashboard", async (c) => {
 
 // Mount workspaces routes
 app.route("/api/workspaces", workspaces);
+app.route("/api/accounts", accounts);
 
 // 404 handler
 app.notFound((c) => {

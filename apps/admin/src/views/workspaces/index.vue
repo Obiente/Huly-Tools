@@ -47,10 +47,10 @@
 
 <script setup lang="ts">
   import { ref, computed, onMounted } from "vue";
-  import WorkspacesGrid from "@/components/Workspaces.vue";
-  import SearchInput from "@/components/ui/SearchInput.vue";
-  import ActionButton from "@/components/ui/ActionButton.vue";
-  import { useAdminApi } from "@/composables/useAdminApi";
+  import WorkspacesGrid from "@components/Workspaces.vue";
+  import SearchInput from "@components/ui/SearchInput.vue";
+  import ActionButton from "@components/ui/ActionButton.vue";
+  import { useAdminApi } from "@composables/useAdminApi";
   import type { Workspace } from "@huly-tools/types";
 
   const {

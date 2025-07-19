@@ -16,7 +16,9 @@ function formatUptime(seconds: number): string {
   }
 }
 
-function formatMemoryUsage(memory: { heapUsed: number; heapTotal: number }): string {
+function formatMemoryUsage(
+  memory: { heapUsed: number; heapTotal: number },
+): string {
   const usedMB = Math.round(memory.heapUsed / 1024 / 1024);
   const totalMB = Math.round(memory.heapTotal / 1024 / 1024);
   return `${usedMB}MB / ${totalMB}MB`;
@@ -38,7 +40,7 @@ stats.get("/", async (c) => {
     return c.json({ error: String(error) }, 500);
   }
 });
-
+import { DashboardResponse, DashboardStats } from "@huly-tools/types";
 // GET /api/stats/system - Get system health information
 stats.get("/system", async (c) => {
   try {
@@ -46,13 +48,19 @@ stats.get("/system", async (c) => {
     const uptime = formatUptime(statsData.uptime);
     const memoryUsage = formatMemoryUsage(statsData.memory);
     const storageUsage = formatStorageUsage(statsData.storageSize || 0);
-    const memoryUsagePercent = (statsData.memory.heapUsed / statsData.memory.heapTotal) * 100;
-    let status: "healthy" | "warning" | "critical" = "healthy";
-    if (memoryUsagePercent > 90) {
-      status = "critical";
-    } else if (memoryUsagePercent > 70) {
-      status = "warning";
-    }
+    const memoryUsagePercent =
+      (statsData.memory.heapUsed / statsData.memory.heapTotal) * 100;
+    let status = (() => {
+      switch (true) {
+        case memoryUsagePercent > 90:
+          return "critical";
+        case memoryUsagePercent > 70:
+          return "warning";
+        default:
+          return "healthy";
+      }
+    })();
+
     return c.json({
       status,
       uptime,

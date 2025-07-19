@@ -1,4 +1,4 @@
-import { useAdminApi } from "@/composables/useAdminApi";
+import { useAdminApi } from "@composables/useAdminApi";
 import { computed, ref } from "vue";
 import type { Ref } from "vue";
 
@@ -41,9 +41,7 @@ export async function useDashboard() {
   const activityLoading = ref(false);
 
   let refreshInterval: ReturnType<typeof setInterval> | null = null;
-
-  const { migrationStatus, stats, systemHealth, recentBackups } =
-    await useAdminApi().getDashboard();
+  const { getSystemHealth, getDashboard } = useAdminApi();
   // Mock data for now - replace with API calls
   const DashboardStats: DashboardStats[] = [
     {
@@ -114,7 +112,29 @@ export async function useDashboard() {
     statsLoading.value = true;
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const { stats, systemHealth, recentBackups, migrationStatus } =
+        await getDashboard();
+      dashboardStats.value = DashboardStats.map((stat) => {
+        switch (stat.id) {
+          case "users":
+            return { ...stat, value: stats.accounts };
+          case "workspaces":
+            return { ...stat, value: stats.workspaces };
+          case "storage":
+            return { ...stat, value: systemHealth.storageUsage };
+          case "uptime":
+            return { ...stat, value: systemHealth.uptime };
+          default:
+            return stat;
+        }
+      });
+      dashboardSystemHealth.value = {
+        status: systemHealth.status,
+        uptime: systemHealth.uptime,
+        memoryUsage: systemHealth.memoryUsage,
+        storageUsage: systemHealth.storageUsage,
+        activeConnections: systemHealth.activeConnections,
+      };
       dashboardStats.value = DashboardStats;
     } catch (error) {
       console.error("Failed to fetch stats:", error);
@@ -127,8 +147,7 @@ export async function useDashboard() {
     healthLoading.value = true;
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      dashboardSystemHealth.value = mockHealth;
+      dashboardSystemHealth.value = await getSystemHealth();
     } catch (error) {
       console.error("Failed to fetch system health:", error);
     } finally {

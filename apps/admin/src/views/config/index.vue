@@ -21,11 +21,11 @@
 </template>
 
 <script setup lang="ts">
-  import { useConfigPage } from "@/composables/useConfigPage";
-  import ConfigHeader from "@/components/config/ConfigHeader.vue";
-  import ConfigForm from "@/components/config/ConfigForm.vue";
-  import ConfigFooter from "@/components/config/ConfigFooter.vue";
-  import { useConfigActions } from "@/composables/useConfigActions";
+  import { useConfigPage } from "@composables/useConfigPage";
+  import ConfigHeader from "@components/config/ConfigHeader.vue";
+  import ConfigForm from "@components/config/ConfigForm.vue";
+  import ConfigFooter from "@components/config/ConfigFooter.vue";
+  import { useConfigActions } from "@composables/useConfigActions";
 
   const {
     apiEndpoint,

@@ -54,9 +54,9 @@
 </template>
 
 <script setup lang="ts">
-import { useUI } from '@/composables/useUI'
-import NotificationList from '@/components/ui/NotificationList.vue'
-import NavigationLink from "@/components/ui/NavigationLink.vue";
+import { useUI } from '@composables/useUI'
+import NotificationList from '@components/ui/NotificationList.vue'
+import NavigationLink from "@components/ui/NavigationLink.vue";
 
 
 const { notifications, removeNotification } = useUI()

@@ -128,7 +128,9 @@ export class HulyConnection {
     description?: string
     owner: string
   }) {
-    return this.workspaces.createWorkspace(workspaceData)
+    //TODO:
+    console.warn('createWorkspace is not implemented yet')
+    // return this.workspaces.createWorkspace(workspaceData)
   }
 
   async updateWorkspace(workspaceId: string, updates: any) {

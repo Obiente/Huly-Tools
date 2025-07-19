@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # Add this to your existing Huly docker-compose.yml
+  huly-admin-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: huly-admin-api
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - HULY_DB_URL=mongodb://mongodb:27017/huly
+      - HULY_TRANSACTOR_URL=ws://transactor:3333
+      - HULY_ACCOUNT_URL=http://account:3000
+      - HULY_FRONT_URL=http://front:8080
+      - API_SECRET=${API_SECRET:-your-secret-key-here}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:4321}
+      - PORT=3001
+    depends_on:
+      - mongodb
+      - transactor
+      - account
+    networks:
+      - huly-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  huly-network:
+    external: true

@@ -39,9 +39,9 @@
 
 <script setup lang="ts">
 import type { Activity } from '../composables/useDashboard'
-import ActivityItem from '../../@/components/ui/ActivityItem.vue'
-import RefreshButton from '../../@/components/ui/RefreshButton.vue'
-import ViewAllLink from '../../@/components/ui/ViewAllLink.vue'
+import ActivityItem from '@/components/ui/ActivityItem.vue'
+import RefreshButton from '@/components/ui/RefreshButton.vue'
+import ViewAllLink from '@/components/ui/ViewAllLink.vue'
 
 interface Props {
   activities: Activity[]

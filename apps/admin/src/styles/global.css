@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* Huly Design System Variables */
+:root {
+  /* Core Color Palette from Huly */
+  --primary-button-default: #2c23d5;
+  --primary-button-hover: #1f1ab3;
+  --primary-button-color: #fff;
+  --primary-button-outline: rgba(44, 35, 213, 0.5);
+  
+  --bg-positive-default: #05A05C;
+  --bg-negative-default: #CB4B42;
+  
+  --white-color: #fff;
+  --duotone-color: rgba(126, 134, 158, 0.25);
+  
+  --system-error-color: #EE7A7A;
+  --system-error-60-color: rgba(238, 122, 122, 0.6);
+  
+  --activity-status-active: #34DB80;
+  --activity-status-dnd: #D95757;
+  --activity-status-busy: #FCC500;
+  --activity-status-away: #9099A2;
+  
+  --primary-color-blue: #2c23d5;
+  --grayscale-grey-03: #77818E;
+  
+  /* State Colors */
+  --theme-state-negative-color: #CB4B42;
+  --theme-state-negative-hover: #B2423A;
+  --theme-state-negative-background-color: rgba(203, 75, 66, 0.15);
+  --theme-state-negative-border-color: rgba(203, 75, 66, 0.15);
+  
+  --theme-state-positive-color: #05A05C;
+  --theme-state-positive-hover: #04874E;
+  --theme-state-positive-background-color: rgba(5, 160, 92, 0.1);
+  --theme-state-positive-background-hover: rgba(5, 160, 92, 0.2);
+  --theme-state-positive-border-color: rgba(5, 160, 92, 0.15);
+  
+  --theme-state-ghost-color: rgba(123, 123, 123, 0.6);
+  --theme-state-ghost-background-color: rgba(123, 123, 123, 0.1);
+  --theme-state-ghost-border-color: transparent;
+  
+  --theme-state-primary-color: #2c23d5;
+  --theme-state-primary-background-color: rgba(44, 35, 213, 0.1);
+  --theme-state-primary-border-color: rgba(44, 35, 213, 0.15);
+  
+  --theme-state-regular-color: #7b7b7b;
+  --theme-state-regular-background-color: rgba(123, 123, 123, 0.1);
+  --theme-state-regular-border-color: rgba(123, 123, 123, 0.15);
+  
+  /* Theme Colors */
+  --theme-error-color: #eb5757;
+  --theme-urgent-color: #F5694A;
+  --theme-warning-color: #f2994a;
+  --theme-lost-color: #eb5757;
+  --theme-won-color: #34DB80;
+  
+  /* Border Radius */
+  --min-BorderRadius: 0.125rem;
+  --extra-small-BorderRadius: 0.25rem;
+  --small-BorderRadius: 0.375rem;
+  --medium-BorderRadius: 0.5rem;
+  --large-BorderRadius: 1rem;
+  
+  /* Sizing */
+  --global-min-Size: 1rem;
+  --global-small-Size: 2rem;
+  --global-medium-Size: 2.5rem;
+  --global-large-Size: 3rem;
+  
+  /* Spacing */
+  --spacing-0_125: 0.125rem;
+  --spacing-0_25: 0.25rem;
+  --spacing-0_5: 0.5rem;
+  --spacing-1: 1rem;
+  --spacing-1_5: 1.5rem;
+  --spacing-2: 2rem;
+  --spacing-4: 4rem;
+}
+
+/* Light Theme Variables (Default) - Updated for Huly Design */
+:root,
+.theme-light {
+  --theme-text-primary-color: rgba(0, 0, 0, 0.8);
+  --theme-text-placeholder-color: rgba(0, 0, 0, 0.4);
+  --theme-bg-color: #14141F;
+  --theme-content-color: rgba(255, 255, 255, 0.8);
+  --theme-caption-color: #FFF;
+  --theme-divider-color: rgba(255, 255, 255, 0.06);
+  --theme-panel-color: #21212F;
+  --theme-navpanel-color: #14141F;
+  --theme-navpanel-divider: rgba(255, 255, 255, 0.1);
+  --theme-navpanel-hovered: rgba(255, 255, 255, 0.04);
+  --theme-navpanel-selected: rgba(255, 255, 255, 0.08);
+  --theme-comp-header-color: #1F1F2C;
+  --theme-bg-accent-color: rgba(255, 255, 255, 0.08);
+  
+  /* Elevation System */
+  --theme-card-color: #14141F;
+  --theme-card-elevated-color: #1F1F2C;
+  --theme-card-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
+  --theme-card-shadow-hover: 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  
+  /* Table Colors - Huly Dark Theme */
+  --theme-table-border-color: rgba(255, 255, 255, 0.1);
+  --theme-table-header-color: #1C1C29;
+  --theme-table-row-color: #21212F;
+}
+
+/* Dark Theme Variables */
+.theme-dark {
+  --theme-text-primary-color: rgba(255, 255, 255, 0.8);
+  --theme-text-placeholder-color: rgba(255, 255, 255, 0.4);
+  --theme-bg-color: #1A1A28;
+  --theme-content-color: rgba(255, 255, 255, 0.8);
+  --theme-caption-color: #FFF;
+  --theme-divider-color: rgba(255, 255, 255, 0.06);
+  --theme-panel-color: #1A1A28;
+  
+  /* Table Colors */
+  --theme-table-border-color: rgba(255, 255, 255, 0.1);
+  --theme-table-header-color: #1C1C29;
+  --theme-table-row-color: #21212F;
+}
+
+/* Default to light theme */
+html {
+  color-scheme: light;
+}
+
+/* Auto dark theme detection */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

@@ -1,0 +1,44 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import HulyTable from '../components/HulyTable.astro';
+import HulyTableHeader from '../components/HulyTableHeader.astro';
+import HulyTableCell from '../components/HulyTableCell.astro';
+import HulyTableRowAction from '../components/HulyTableRowAction.astro';
+import HulyPageTitle from '../components/HulyPageTitle.astro';
+import HulyActionBar from '../components/HulyActionBar.astro';
+import HulyButton from '../components/HulyButton.astro';
+
+const mockWorkspaces = [
+  { id: 1, name: 'Marketing', owner: 'Jane Doe' },
+  { id: 2, name: 'Development', owner: 'John Smith' },
+  { id: 3, name: 'Design', owner: 'Sarah Wilson' }
+];
+---
+
+<DashboardLayout>
+  <HulyPageTitle title="Workspaces" />
+  <HulyActionBar>
+    <HulyButton kind="primary" label="Add Workspace" />
+  </HulyActionBar>
+  <HulyTable>
+    <thead>
+      <tr>
+        <HulyTableHeader label="Name" />
+        <HulyTableHeader label="Owner" />
+        <HulyTableHeader label="Actions" />
+      </tr>
+    </thead>
+    <tbody>
+      {mockWorkspaces.map(ws => (
+        <tr>
+          <HulyTableCell>{ws.name}</HulyTableCell>
+          <HulyTableCell>{ws.owner}</HulyTableCell>
+          <HulyTableCell>
+            <HulyTableRowAction label="Edit" />
+            <HulyTableRowAction label="Delete" variant="danger" />
+          </HulyTableCell>
+        </tr>
+      ))}
+    </tbody>
+  </HulyTable>
+</DashboardLayout>

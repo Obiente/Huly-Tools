@@ -1,0 +1,23 @@
+---
+// HulyPageTitle.astro: Page title component matching Huly's design system
+const { title } = Astro.props;
+---
+<div class="hulyPageTitle">
+  <h1 class="hulyPageTitle-text">{title}</h1>
+</div>
+
+<style>
+  .hulyPageTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .hulyPageTitle-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+    color: var(--theme-caption-color, #FFF);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,146 @@
+---                               
+// Dashboard layout for Huly.io admin using Huly's design system
+---  
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Huly.io Admin Dashboard</title>
+  </head>
+  <body class="hulyDashboard">
+    <div class="hulyDashboard-container">
+      <!-- Sidebar -->
+      <aside class="hulyDashboard-sidebar">
+        <div class="hulyDashboard-sidebar-header">
+          <span class="hulyDashboard-sidebar-title">Huly.io Admin</span>
+        </div>
+        <nav class="hulyDashboard-sidebar-nav">
+          <a href="/" class="hulyDashboard-sidebar-link">
+            <span class="hulyDashboard-sidebar-link-text">Dashboard</span>
+          </a>
+          <a href="/users" class="hulyDashboard-sidebar-link">
+            <span class="hulyDashboard-sidebar-link-text">Users</span>
+          </a>
+          <a href="/workspaces" class="hulyDashboard-sidebar-link">
+            <span class="hulyDashboard-sidebar-link-text">Workspaces</span>
+          </a>
+          <a href="/tasks" class="hulyDashboard-sidebar-link">
+            <span class="hulyDashboard-sidebar-link-text">Tasks</span>
+          </a>
+        </nav>
+      </aside>
+      <!-- Main content -->
+      <main class="hulyDashboard-main">
+        <div class="hulyDashboard-content">
+          <slot />
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
+<script>
+  // Set active navigation state
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.hulyDashboard-sidebar-link');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (currentPath === '/' && href === '/')) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+<style>
+  .hulyDashboard {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--theme-bg-color, #F1F1F4);
+    min-height: 100vh;
+    color: var(--theme-content-color, #374151);
+  }
+
+  .hulyDashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+
+  .hulyDashboard-sidebar {
+    width: 16rem;
+    background-color: var(--theme-navpanel-color, #14141F);
+    border-right: 1px solid var(--theme-navpanel-divider, rgba(255, 255, 255, 0.1));
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .hulyDashboard-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    border-bottom: 1px solid var(--theme-navpanel-divider, rgba(255, 255, 255, 0.1));
+    padding: 0 1rem;
+  }
+
+  .hulyDashboard-sidebar-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-button-default, #2c23d5);
+    text-shadow: 0 0 20px rgba(44, 35, 213, 0.3);
+  }
+
+  .hulyDashboard-sidebar-nav {
+    flex: 1;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hulyDashboard-sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--small-BorderRadius, 0.5rem);
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .hulyDashboard-sidebar-link:hover {
+    background-color: var(--theme-navpanel-hovered, rgba(255, 255, 255, 0.04));
+    color: var(--theme-caption-color, #FFF);
+  }
+
+  .hulyDashboard-sidebar-link.active {
+    background-color: var(--theme-navpanel-selected, rgba(255, 255, 255, 0.08));
+    color: var(--primary-button-default, #2c23d5);
+    font-weight: 600;
+  }
+
+  .hulyDashboard-sidebar-link-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .hulyDashboard-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--theme-panel-color, #1A1A28);
+  }
+
+  .hulyDashboard-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+</style>

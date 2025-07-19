@@ -1,0 +1,138 @@
+---
+// HulyButton.astro: Button component matching Huly's design system
+const { 
+  kind = 'secondary', 
+  size = 'medium', 
+  label,
+  icon,
+  disabled = false,
+  type = 'button'
+} = Astro.props;
+
+const baseClasses = 'hulyButton';
+const kindClass = kind === 'primary' ? 'primary' : 
+                  kind === 'tertiary' ? 'tertiary' : 
+                  kind === 'negative' ? 'negative' : 'secondary';
+const sizeClass = size === 'large' ? 'large' : 
+                  size === 'small' ? 'small' : 
+                  size === 'extra-small' ? 'extra-small' : 'medium';
+
+const classes = `${baseClasses} ${kindClass} ${sizeClass} type-button`;
+---
+<button class={classes} {disabled} {type}>
+  {icon && (
+    <div class="btn-icon">
+      <!-- Icon would be rendered here -->
+    </div>
+  )}
+  {label && (
+    <span class="overflow-label">{label}</span>
+  )}
+  <slot />
+</button>
+
+<style>
+  .hulyButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    background-color: transparent;
+    border: 1px solid transparent;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    gap: 0.5rem;
+    border-radius: var(--extra-small-BorderRadius, 0.25rem);
+    transition: all 0.15s ease;
+  }
+
+  .hulyButton.large {
+    height: 2.5rem;
+    padding: 0 1rem;
+  }
+
+  .hulyButton.medium {
+    height: 2rem;
+    padding: 0 1rem;
+  }
+
+  .hulyButton.small {
+    height: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .hulyButton.extra-small {
+    height: 1.25rem;
+    padding: 0 0.5rem;
+  }
+
+  .hulyButton.primary {
+    background-color: var(--primary-button-default, #2c23d5);
+    color: var(--primary-button-color, white);
+    border-color: var(--primary-button-default, #2c23d5);
+  }
+
+  .hulyButton.primary:hover:not(:disabled) {
+    background-color: var(--primary-button-hover, #1f1ab3);
+    border-color: var(--primary-button-hover, #1f1ab3);
+  }
+
+  .hulyButton.secondary {
+    background-color: transparent;
+    color: var(--theme-content-color, #525252);
+    border-color: var(--theme-divider-color, #E5E5E5);
+  }
+
+  .hulyButton.secondary:hover:not(:disabled) {
+    background-color: var(--theme-bg-accent-color, #F5F5F5);
+    border-color: var(--theme-divider-color, #D4D4D4);
+  }
+
+  .hulyButton.tertiary {
+    background-color: transparent;
+    color: var(--theme-content-color, #525252);
+    border-color: transparent;
+  }
+
+  .hulyButton.tertiary:hover:not(:disabled) {
+    background-color: var(--theme-bg-accent-color, #F5F5F5);
+  }
+
+  .hulyButton.negative {
+    background-color: var(--theme-state-negative-color, #CB4B42);
+    color: var(--white-color, white);
+    border-color: var(--theme-state-negative-color, #CB4B42);
+  }
+
+  .hulyButton.negative:hover:not(:disabled) {
+    background-color: var(--theme-state-negative-hover, #B2423A);
+    border-color: var(--theme-state-negative-hover, #B2423A);
+  }
+
+  .hulyButton.tertiary:hover:not(:disabled) {
+    background-color: #F5F5F5;
+  }
+
+  .hulyButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .overflow-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>

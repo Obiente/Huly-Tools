@@ -1,0 +1,75 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import HulyPageTitle from '../components/HulyPageTitle.astro';
+import HulyButton from '../components/HulyButton.astro';
+---
+
+<DashboardLayout>
+  <HulyPageTitle title="Huly.io Admin Dashboard" />
+  <div class="hulyDashboard-grid">
+    <div class="hulyDashboard-card">
+      <h2 class="hulyDashboard-card-title">Users</h2>
+      <p class="hulyDashboard-card-description">Manage user accounts and permissions</p>
+      <a href="/users">
+        <HulyButton kind="primary" label="View Users" />
+      </a>
+    </div>
+    <div class="hulyDashboard-card">
+      <h2 class="hulyDashboard-card-title">Workspaces</h2>
+      <p class="hulyDashboard-card-description">Manage organizational workspaces</p>
+      <a href="/workspaces">
+        <HulyButton kind="primary" label="View Workspaces" />
+      </a>
+    </div>
+    <div class="hulyDashboard-card">
+      <h2 class="hulyDashboard-card-title">Tasks</h2>
+      <p class="hulyDashboard-card-description">View and manage tasks across all workspaces</p>
+      <a href="/tasks">
+        <HulyButton kind="primary" label="View Tasks" />
+      </a>
+    </div>
+  </div>
+</DashboardLayout>
+
+<style>
+  .hulyDashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .hulyDashboard-card {
+    background-color: var(--theme-card-color, #14141F);
+    border: 1px solid var(--theme-divider-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--medium-BorderRadius, 0.5rem);
+    padding: 1.5rem;
+    box-shadow: var(--theme-card-shadow, 0 4px 12px 0 rgba(0, 0, 0, 0.4));
+    transition: all 0.2s ease;
+  }
+
+  .hulyDashboard-card:hover {
+    background-color: var(--theme-card-elevated-color, #1F1F2C);
+    transform: translateY(-2px);
+    box-shadow: var(--theme-card-shadow-hover, 0 6px 20px 0 rgba(0, 0, 0, 0.5));
+  }
+
+  .hulyDashboard-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--theme-caption-color, #FFF);
+    margin: 0 0 1rem 0;
+  }
+
+  .hulyDashboard-card-description {
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    margin: 0 0 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .hulyDashboard-card a {
+    text-decoration: none;
+    display: inline-block;
+  }
+</style>
+</Layout>

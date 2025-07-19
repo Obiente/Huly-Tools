@@ -1,0 +1,66 @@
+---
+// HulyTable.astro: Table component matching Huly's design system
+---
+<div class="hulyTable">
+  <div class="hulyTable-content">
+    <table class="hulyTable-table">
+      <slot />
+    </table>
+  </div>
+</div>
+
+<style>
+  .hulyTable {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    background-color: var(--theme-panel-color, #1A1A28);
+    border: 1px solid var(--theme-table-border-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--medium-BorderRadius, 0.5rem);
+    overflow: hidden;
+  }
+
+  .hulyTable-content {
+    overflow-x: auto;
+  }
+
+  .hulyTable-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .hulyTable-table :global(th) {
+    background-color: var(--theme-table-header-color, #1C1C29);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--theme-table-border-color, rgba(255, 255, 255, 0.1));
+  }
+
+  .hulyTable-table :global(td) {
+    padding: 1rem;
+    border-bottom: 1px solid var(--theme-table-border-color, rgba(255, 255, 255, 0.1));
+    color: var(--theme-content-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--theme-table-row-color, #21212F);
+  }
+
+  .hulyTable-table :global(tbody tr:hover) {
+    background-color: var(--theme-bg-accent-color, rgba(255, 255, 255, 0.04));
+  }
+
+  .hulyTable-table :global(tbody tr:hover td) {
+    background-color: var(--theme-bg-accent-color, rgba(255, 255, 255, 0.04));
+  }
+
+  .hulyTable-table :global(tbody tr:last-child td) {
+    border-bottom: none;
+  }
+</style>

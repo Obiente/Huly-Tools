@@ -1,0 +1,20 @@
+---
+// HulyActionBar.astro: Action bar component matching Huly's design system
+---
+<div class="hulyActionBar">
+  <slot />
+</div>
+
+<style>
+  .hulyActionBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .hulyActionBar :global(> *) {
+    flex-shrink: 0;
+  }
+</style>

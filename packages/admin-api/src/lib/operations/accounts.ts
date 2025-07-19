@@ -1,5 +1,5 @@
 import { DatabaseConnection } from '../database/connection'
-import type { Account } from '../types'
+import type { Account } from '@huly-tools/types'
 
 export class AccountOperations {
   private db: DatabaseConnection
@@ -10,7 +10,7 @@ export class AccountOperations {
 
   async listAccounts(): Promise<Account[]> {
     const accountsDb = this.db.getAccountDb()
-    const accounts = await accountsDb.collection('accounts').find({}).toArray()
+    const accounts = await accountsDb.collection('account').find({}).toArray()
     
     return accounts.map(acc => ({
       _id: acc._id.toString(),

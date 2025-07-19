@@ -1,9 +1,3 @@
-/**
- * Database operation types and interfaces
- */
-
-import type { Db, MongoClient } from 'mongodb'
-
 export interface DatabaseStats {
   accounts: number
   workspaces: number

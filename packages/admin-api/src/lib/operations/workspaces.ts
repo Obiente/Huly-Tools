@@ -1,5 +1,5 @@
 import { DatabaseConnection } from '../database/connection'
-import type { Workspace } from '../types'
+import type { Workspace } from '@huly-tools/types'
 
 export class WorkspaceOperations {
   private db: DatabaseConnection

@@ -1,5 +1,5 @@
 import { DatabaseConnection } from '../database/connection'
-import type { Backup } from '../types'
+import type { Backup } from '@huly-tools/types'
 
 export class BackupOperations {
   private db: DatabaseConnection

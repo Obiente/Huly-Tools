@@ -52,4 +52,8 @@ services:
 
 Set API keys and endpoints in the dashboard UI. API environment variables are managed via `.env` or Docker Compose.
 
+---
+
+**Note:** Huly Tools is still early in development. Features and stability may change rapidly. Please use with caution and report any issues or feedback.
+
 Made by Obiente with love.

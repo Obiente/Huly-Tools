@@ -1,4 +1,32 @@
 ---
-// Redirect to dashboard
-return Astro.redirect('/dashboard')
+import ActionButton from "@/components/ui/ActionButton.vue";
+import StatsCard from "@/components/ui/StatsCard.vue";
+import HealthIndicator from "@/components/ui/HealthIndicator.vue";
+import Layout from "@/layouts/Layout.astro";
+const dashboardUrl = "/dashboard";
 ---
+
+<Layout>
+  <title>Huly Tools Dashboard</title>
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="rounded-2xl shadow-2xl p-10 max-w-2xl w-full text-center bg-[#14141f]">
+      <h1 class="text-white text-4xl font-bold mb-2">Welcome to Huly Tools</h1>
+      <div class="text-slate-200 text-lg mb-6">
+        Modern admin dashboard and API for managing your Huly platform.<br />
+        Manage users, workspaces, backups, and database operations from a secure web interface.
+      </div>
+      <div class="my-6">
+        <div class="flex items-center justify-center gap-2 bg-black/10 text-yellow-400 rounded-lg px-4 py-3 text-base font-semibold">
+          <HealthIndicator status="warning" />
+          <span>Early in development. Use with caution!</span>
+        </div>
+      </div>
+      <a href={dashboardUrl} class="inline-block mt-6">
+        <ActionButton :variant="'primary'" :size="'lg'" :icon="'ArrowPathIcon'">
+          Continue to Dashboard
+        </ActionButton>
+      </a>
+      <div class="mt-8 text-slate-400 text-base">Made by Obiente with love.</div>
+    </div>
+  </div>
+</Layout>

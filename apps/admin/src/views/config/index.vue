@@ -1,7 +1,6 @@
 <template>
   <div class="config-view">
     <ConfigHeader />
-    {{isLoading}}
     <div class="config-content">
       <ConfigForm
         :api-endpoint="apiEndpoint"
@@ -15,7 +14,6 @@
         @submit="onSaveConfig"
         @test="onTestConnection"
       />
-      {{connectionStatus}}
       <div v-if="connectionStatus" class="mt-4 flex items-center gap-2">
         <span v-if="connectionStatus === 'success'" class="text-green-600">✅ Connected</span>
         <span v-else class="text-red-600">❌ Connection Failed</span>

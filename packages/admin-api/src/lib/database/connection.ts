@@ -32,17 +32,14 @@ export class DatabaseConnection {
   }
 
   // Get the accounts database
-  getAccountsDb(): Db {
-    return this.getDb('accounts')
+  getAccountDb(): Db {
+    return this.getDb('account')
   }
 
   // Get workspace database by ID
   getWorkspaceDb(workspaceId: string): Db {
-    return this.getDb(`workspace-${workspaceId}`)
+    return this.getDb(`w-${workspaceId}`)
   }
 
-  // Get main Huly database
-  getHulyDb(): Db {
-    return this.getDb('huly')
-  }
+
 }

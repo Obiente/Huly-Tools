@@ -9,7 +9,7 @@ export class AccountOperations {
   }
 
   async listAccounts(): Promise<Account[]> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     const accounts = await accountsDb.collection('accounts').find({}).toArray()
     
     return accounts.map(acc => ({
@@ -29,7 +29,7 @@ export class AccountOperations {
     last: string
     password: string
   }): Promise<Account> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     
     // Check if account exists
     const existing = await accountsDb.collection('accounts').findOne({ email: accountData.email })
@@ -52,7 +52,7 @@ export class AccountOperations {
   }
 
   async getAccount(accountId: string): Promise<Account | null> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     const account = await accountsDb.collection('accounts').findOne({ _id: accountId } as any)
     
     if (!account) return null
@@ -69,7 +69,7 @@ export class AccountOperations {
   }
 
   async updateAccount(accountId: string, updates: Partial<Account>): Promise<Account> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     const result = await accountsDb.collection('accounts').findOneAndUpdate(
       { _id: accountId } as any,
       { $set: updates },
@@ -84,7 +84,7 @@ export class AccountOperations {
   }
 
   async deleteAccount(accountId: string): Promise<void> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     const result = await accountsDb.collection('accounts').deleteOne({ _id: accountId } as any)
     
     if (result.deletedCount === 0) {
@@ -93,7 +93,7 @@ export class AccountOperations {
   }
 
   async assignWorkspace(accountId: string, workspaceId: string): Promise<Account> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     
     // Check if account exists
     const account = await accountsDb.collection('accounts').findOne({ _id: accountId } as any)
@@ -121,7 +121,7 @@ export class AccountOperations {
   }
 
   async unassignWorkspace(accountId: string, workspaceId: string): Promise<Account> {
-    const accountsDb = this.db.getAccountsDb()
+    const accountsDb = this.db.getAccountDb()
     
     // Remove workspace from account
     const result = await accountsDb.collection('accounts').findOneAndUpdate(

@@ -2,7 +2,7 @@
 export interface Props {
   title?: string;
 }
-
+import { ClientRouter } from "astro:transitions";
 import DashboardLayout from "@/layouts/DashboardLayout.vue";
 import "styles/global.css";
 const { title = "Dashboard" } = Astro.props;
@@ -16,6 +16,53 @@ const { title = "Dashboard" } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} - Huly Admin</title>
+    <ClientRouter fallback="animate" />
+    <style>
+      .fade-enter {
+        opacity: 0;
+      }
+      .fade-enter-active {
+        opacity: 1;
+        transition: opacity 300ms;
+      }
+      .fade-exit {
+        opacity: 1;
+      }
+      .fade-exit-active {
+        opacity: 0;
+        transition: opacity 300ms;
+      }
+    </style>
+    <script is:inline>
+      // Fallback for browsers without View Transitions API
+      if (!('startViewTransition' in document)) {
+        function getContent() {
+          return document.querySelector('body .main-content') || document.querySelector('body .content-wrapper');
+        }
+        function fadeIn() {
+          const main = getContent();
+          if (main) {
+            main.classList.add('fade-enter');
+            setTimeout(() => {
+              main.classList.add('fade-enter-active');
+              main.classList.remove('fade-enter');
+            }, 10);
+          }
+        }
+        function fadeOut() {
+          const main = getContent();
+          if (main) {
+            main.classList.add('fade-exit-active');
+            setTimeout(() => {
+              main.classList.remove('fade-exit-active');
+            }, 300);
+          }
+        }
+        window.addEventListener('astro:page-load', fadeIn);
+        window.addEventListener('astro:before-page-leave', fadeOut);
+        document.addEventListener('DOMContentLoaded', fadeIn);
+      }
+    </script>
   </head>
   <body class="bg-gray-50 dark:bg-gray-900">
     <DashboardLayout client:load>

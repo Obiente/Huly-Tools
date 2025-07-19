@@ -8,57 +8,49 @@
         :is-loading="isLoading"
         :can-submit="canSubmit"
         :can-test="canTest"
-        @update:api-endpoint="val => apiEndpoint = val"
-        @update:api-key="val => apiKey = val"
+        @update:api-endpoint="(val) => (apiEndpoint = val)"
+        @update:api-key="(val) => (apiKey = val)"
         @blurField="touchField"
         @submit="onSaveConfig"
         @test="onTestConnection"
       />
-      <div v-if="connectionStatus" class="mt-4 flex items-center gap-2">
-        <span v-if="connectionStatus === 'success'" class="text-green-600">✅ Connected</span>
-        <span v-else class="text-red-600">❌ Connection Failed</span>
-      </div>
+
+      <ConfigFooter />
     </div>
-    <ConfigFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useConfigPage } from '@/composables/useConfigPage'
-import { useUI } from '@/composables/useUI'
-import ConfigHeader from '@/components/config/ConfigHeader.vue'
-import ConfigForm from '@/components/config/ConfigForm.vue'
-import ConfigFooter from '@/components/config/ConfigFooter.vue'
-import NotificationList from '@/components/ui/NotificationList.vue'
+  import { useConfigPage } from "@/composables/useConfigPage";
+  import ConfigHeader from "@/components/config/ConfigHeader.vue";
+  import ConfigForm from "@/components/config/ConfigForm.vue";
+  import ConfigFooter from "@/components/config/ConfigFooter.vue";
+  import { useConfigActions } from "@/composables/useConfigActions";
 
-const {
-  apiEndpoint,
-  apiKey,
-  canSubmit,
-  canTest,
-  isLoading,
-  connectionStatus,
-  touchField,
-  testConnection,
-  updateConfig,
-  showSuccess,
-  showError,
-} = useConfigPage()
-const { notifications, removeNotification } = useUI()
+  const {
+    apiEndpoint,
+    apiKey,
+    canSubmit,
+    canTest,
+    isLoading,
+    connectionStatus,
+    touchField,
+    updateConfig,
+    showSuccess,
+  } = useConfigPage();
+  const { testConnectionOnly } = useConfigActions();
 
-function onSaveConfig() {
-  updateConfig({ endpoint: apiEndpoint.value, apiKey: apiKey.value })
-  showSuccess('Configuration saved!')
-}
+  async function onSaveConfig() {
+    await testConnectionOnly(apiEndpoint.value, apiKey.value, connectionStatus);
+    if (connectionStatus.value === "error") return;
 
-async function onTestConnection() {
-  const success = await testConnection()
-  if (success) {
-    showSuccess('Connection successful!')
-  } else {
-    showError('Connection failed. Please check your API endpoint and key.')
+    updateConfig({ endpoint: apiEndpoint.value, apiKey: apiKey.value });
+    showSuccess("Configuration saved!");
   }
-}
+
+  async function onTestConnection() {
+    await testConnectionOnly(apiEndpoint.value, apiKey.value, connectionStatus);
+  }
 </script>
 
 <style scoped>

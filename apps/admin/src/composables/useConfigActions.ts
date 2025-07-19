@@ -1,13 +1,13 @@
 /**
  * Configuration actions - save and test functionality
  */
-import { useAdminApi } from './useAdminApi'
-import { useUI } from './useUI'
-import type { Ref } from 'vue'
+import { useAdminApi } from "./useAdminApi";
+import { useUI } from "./useUI";
+import type { Ref } from "vue";
 
 export function useConfigActions() {
-  const { config, updateConfig, testConnection } = useAdminApi()
-  const { showSuccess, showError, setLoading } = useUI()
+  const { config, updateConfig, testConnection } = useAdminApi();
+  const { showSuccess, showError, setLoading } = useUI();
 
   /**
    * Save configuration and test connection
@@ -15,41 +15,49 @@ export function useConfigActions() {
   async function saveConfiguration(
     apiEndpoint: string,
     apiKey: string,
-    connectionStatus: Ref<'success' | 'error' | null>,
-    validateForm: () => boolean
+    connectionStatus: Ref<"success" | "error" | null>,
+    validateForm: () => boolean,
   ) {
     if (!validateForm()) {
-      showError('Validation Error', 'Please fix the errors in the form')
-      return
+      showError("Validation Error", "Please fix the errors in the form");
+      return;
     }
 
-    setLoading('config', true)
-    
+    setLoading("config", true);
+
     try {
       // Update configuration
       updateConfig({
         endpoint: apiEndpoint,
-        apiKey: apiKey
-      })
+        apiKey: apiKey,
+      });
 
       // Test the connection
-      const isValid = await testConnection()
-      
-      if (isValid) {
-        showSuccess('Configuration Saved', 'API connection verified successfully')
-        connectionStatus.value = 'success'
-        
+      const connection = await testConnection();
+
+      if (connection.success) {
+        showSuccess(
+          "Configuration Saved",
+          "API connection verified successfully",
+        );
+        connectionStatus.value = "success";
+
         // Configuration saved successfully - handled by parent component
       } else {
-        connectionStatus.value = 'error'
-        showError('Connection Failed', 'Unable to connect to the API with the provided configuration')
+        connectionStatus.value = "error";
+        showError(
+          "Connection Failed",
+          connection.error || "Unable to connect to the API",
+        );
       }
     } catch (error) {
-      connectionStatus.value = 'error'
-      const message = error instanceof Error ? error.message : 'Unknown error occurred'
-      showError('Configuration Error', message)
+      connectionStatus.value = "error";
+      const message = error instanceof Error
+        ? error.message
+        : "Unknown error occurred";
+      showError("Configuration Error", message);
     } finally {
-      setLoading('config', false)
+      setLoading("config", false);
     }
   }
 
@@ -59,52 +67,63 @@ export function useConfigActions() {
   async function testConnectionOnly(
     apiEndpoint: string,
     apiKey: string,
-    connectionStatus: Ref<'success' | 'error' | null>
+    connectionStatus: Ref<"success" | "error" | null>,
   ) {
     if (!apiEndpoint || !apiKey) {
-      showError('Missing Information', 'Please enter both API endpoint and key')
-      return
+      showError(
+        "Missing Information",
+        "Please enter both API endpoint and key",
+      );
+      return;
     }
 
-    setLoading('test', true)
-    connectionStatus.value = null
-    
+    setLoading("test", true);
+    connectionStatus.value = null;
+
     try {
       // Store current config
-      const originalConfig = { ...config }
-      
+      const originalConfig = { ...config };
+
       // Temporarily update config for testing
       updateConfig({
         endpoint: apiEndpoint,
-        apiKey: apiKey
-      })
+        apiKey: apiKey,
+      });
 
       // Test connection
-      const isValid = await testConnection()
-      
-      if (isValid) {
-        connectionStatus.value = 'success'
-        showSuccess('Connection Successful', 'API connection verified')
+      const connection = await testConnection();
+
+      if (connection.success) {
+        connectionStatus.value = "success";
+        showSuccess("Connection Successful", "API connection verified");
       } else {
-        connectionStatus.value = 'error'
-        showError('Connection Failed', 'Unable to connect to the API')
+        connectionStatus.value = "error";
+        showError(
+          connection.status || "Connection Failed",
+          connection.error || "Unable to connect to the API",
+        );
       }
 
       // Restore original config if it was different
-      if (originalConfig.endpoint !== apiEndpoint || originalConfig.apiKey !== apiKey) {
-        updateConfig(originalConfig)
+      if (
+        originalConfig.endpoint !== apiEndpoint ||
+        originalConfig.apiKey !== apiKey
+      ) {
+        updateConfig(originalConfig);
       }
     } catch (error) {
-      connectionStatus.value = 'error'
-      const message = error instanceof Error ? error.message : 'Connection test failed'
-      showError('Test Failed', message)
+      connectionStatus.value = "error";
+      const message = error instanceof Error
+        ? error.message
+        : "Connection test failed";
+      showError("Test Failed", message);
     } finally {
-      setLoading('test', false)
+      setLoading("test", false);
     }
   }
 
   return {
     saveConfiguration,
-    testConnectionOnly
-  }
+    testConnectionOnly,
+  };
 }

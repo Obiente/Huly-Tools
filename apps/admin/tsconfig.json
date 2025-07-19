@@ -11,5 +11,5 @@
       "@pages/*": ["pages/*"]
     },
     "jsx": "preserve"
-  }
+  },
 }

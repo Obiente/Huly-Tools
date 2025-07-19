@@ -9,7 +9,7 @@
         </h1>
       </div>
 
-      <nav class="sidebar-nav">
+      <nav class="sidebar-nav" client:load>
         <NavigationLink to="/dashboard" icon="chart-bar">
           Dashboard
         </NavigationLink>
@@ -46,7 +46,7 @@
 
     <!-- Main content -->
     <main class="main-content">
-      <div class="content-wrapper">
+      <div class="content-wrapper" >
         <slot />
       </div>
     </main>
@@ -55,8 +55,9 @@
 
 <script setup lang="ts">
 import { useUI } from '@/composables/useUI'
-import NotificationList from '@/components/ui/NotificationList.vue'
+import NotificationList from './components/ui/NotificationList.vue'
 import NavigationLink from "@/components/ui/NavigationLink.vue";
+
 
 const { notifications, removeNotification } = useUI()
 </script>

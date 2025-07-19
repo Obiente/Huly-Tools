@@ -47,9 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import type { SystemHealth } from '../composables/useDashboard'
-import StatusIndicator from '@/components/ui/StatusIndicator.vue'
-import HealthMetric from '@/components/ui/HealthMetric.vue'
+import type { SystemHealth } from '.@/composables/useDashboard'
+import StatusIndicator from './components/ui/StatusIndicator.vue'
+import HealthMetric from './components/ui/HealthMetric.vue'
 
 interface Props {
   health: SystemHealth | null

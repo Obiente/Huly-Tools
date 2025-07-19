@@ -9,6 +9,8 @@ import type {
   Account,
   ApiResponse,
   Backup,
+  DashboardResponse,
+  DashboardStats,
   Stats,
   SystemHealth,
   Workspace,
@@ -176,8 +178,8 @@ export function useAdminApi() {
     }
   }
 
-  async function getDashboard(): Promise<ApiResponse> {
-    return makeRequest<ApiResponse>("/dashboard");
+  async function getDashboard(): Promise<DashboardResponse> {
+    return makeRequest<DashboardResponse>("/dashboard");
   }
 
   async function getStats(): Promise<Stats> {

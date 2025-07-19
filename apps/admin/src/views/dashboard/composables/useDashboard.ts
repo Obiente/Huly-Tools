@@ -1,3 +1,4 @@
+import { useAdminApi } from "@/composables/useAdminApi";
 import { computed, ref } from "vue";
 import type { Ref } from "vue";
 
@@ -30,9 +31,9 @@ export interface Activity {
   user?: string;
 }
 
-export function useDashboard() {
-  const stats: Ref<DashboardStats[]> = ref([]);
-  const systemHealth: Ref<SystemHealth | null> = ref(null);
+export async function useDashboard() {
+  const dashboardStats: Ref<DashboardStats[]> = ref([]);
+  const dashboardSystemHealth: Ref<SystemHealth | null> = ref(null);
   const recentActivity: Ref<Activity[]> = ref([]);
 
   const statsLoading = ref(false);
@@ -41,13 +42,14 @@ export function useDashboard() {
 
   let refreshInterval: ReturnType<typeof setInterval> | null = null;
 
+  const { migrationStatus, stats, systemHealth, recentBackups } =
+    await useAdminApi().getDashboard();
   // Mock data for now - replace with API calls
-
-  const mockStats: DashboardStats[] = [
+  const DashboardStats: DashboardStats[] = [
     {
       id: "users",
       title: "Total Users",
-      value: 1234,
+      value: stats.accounts,
       icon: "users",
       color: "blue",
       trend: { value: 12, direction: "up", isPositive: true },
@@ -55,7 +57,7 @@ export function useDashboard() {
     {
       id: "workspaces",
       title: "Active Workspaces",
-      value: 56,
+      value: stats.workspaces,
       icon: "building",
       color: "green",
       trend: { value: 3, direction: "up", isPositive: true },
@@ -63,14 +65,14 @@ export function useDashboard() {
     {
       id: "storage",
       title: "Storage Used",
-      value: "45.2 GB",
+      value: systemHealth.storageUsage,
       icon: "archive",
       color: "purple",
     },
     {
       id: "uptime",
       title: "System Uptime",
-      value: "99.9%",
+      value: systemHealth.uptime,
       icon: "server",
       color: "orange",
       trend: { value: 0.1, direction: "up", isPositive: true },
@@ -113,7 +115,7 @@ export function useDashboard() {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 500));
-      stats.value = mockStats;
+      dashboardStats.value = DashboardStats;
     } catch (error) {
       console.error("Failed to fetch stats:", error);
     } finally {
@@ -126,7 +128,7 @@ export function useDashboard() {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 300));
-      systemHealth.value = mockHealth;
+      dashboardSystemHealth.value = mockHealth;
     } catch (error) {
       console.error("Failed to fetch system health:", error);
     } finally {
@@ -175,8 +177,8 @@ export function useDashboard() {
 
   return {
     // State
-    stats,
-    systemHealth,
+    stats: dashboardStats,
+    systemHealth: dashboardSystemHealth,
     recentActivity,
 
     // Loading states

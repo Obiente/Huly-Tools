@@ -22,7 +22,7 @@ services:
   # ... your existing Huly services
 
   admin-api:
-    image: huly-tools/admin-api:latest
+    image: obiente/huly-admin-api:latest
     ports:
       - "3001:3001"
     environment:
@@ -128,7 +128,3 @@ npm run dev    # Start development server
 npm run build  # Build for production
 npm run lint   # Run linting
 ```
-
-## License
-
-MIT

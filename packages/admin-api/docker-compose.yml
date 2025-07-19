@@ -11,7 +11,7 @@ services:
       - "3001:3001"
     environment:
       - NODE_ENV=production
-      - HULY_DB_URL=mongodb://mongodb:27017/huly
+      - HULY_DB_URL=mongodb://mongodb:27017
       - HULY_TRANSACTOR_URL=ws://transactor:3333
       - HULY_ACCOUNT_URL=http://account:3000
       - HULY_FRONT_URL=http://front:8080

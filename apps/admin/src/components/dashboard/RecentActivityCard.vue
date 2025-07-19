@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RecentActivity } from '../.@/composables/useDashboard'
+import type { RecentActivity } from '../@/composables/useDashboard'
 import ActivityItem from '../ui/ActivityItem.vue'
 import ViewAllLink from '../ui/ViewAllLink.vue'
 

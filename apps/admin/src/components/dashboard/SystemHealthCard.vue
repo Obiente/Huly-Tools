@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import type { SystemHealth } from '../.@/composables/useDashboard'
+import type { SystemHealth } from '../@/composables/useDashboard'
 import HealthIndicator from '../ui/HealthIndicator.vue'
 import HealthMetric from '../ui/HealthMetric.vue'
 

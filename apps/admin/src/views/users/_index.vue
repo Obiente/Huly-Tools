@@ -47,10 +47,10 @@
 import { computed } from 'vue'
 import { useUsers } from '@/composables/useUsers'
 import { useUserModal } from '@/composables/useUserModal'
-import UsersTable from './components/UsersTable.vue'
-import UserModal from './components/UserModal.vue'
-import SearchInput from './components/ui/SearchInput.vue'
-import ActionButton from './components/ui/ActionButton.vue'
+import UsersTable from '@/components/UsersTable.vue'
+import UserModal from '@/components/UserModal.vue'
+import SearchInput from '@/components/ui/SearchInput.vue'
+import ActionButton from '@/components/ui/ActionButton.vue'
 
 const {
   users,

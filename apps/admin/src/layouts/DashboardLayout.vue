@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { useUI } from '@/composables/useUI'
-import NotificationList from './components/ui/NotificationList.vue'
+import NotificationList from '@/components/ui/NotificationList.vue'
 import NavigationLink from "@/components/ui/NavigationLink.vue";
 
 

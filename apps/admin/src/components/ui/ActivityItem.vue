@@ -29,7 +29,7 @@ import {
   ArchiveBoxIcon,
   Cog6ToothIcon
 } from '@heroicons/vue/24/outline'
-import type { RecentActivity } from '../.@/composables/useDashboard'
+import type { RecentActivity } from '../@/composables/useDashboard'
 
 interface Props {
   activity: RecentActivity

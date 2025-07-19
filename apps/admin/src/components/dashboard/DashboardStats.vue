@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DashboardStats } from '../.@/composables/useDashboard'
+import type { DashboardStats } from '../@/composables/useDashboard'
 import StatsCard from '../ui/StatsCard.vue'
 
 interface Props {

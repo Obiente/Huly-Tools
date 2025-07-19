@@ -44,8 +44,8 @@
   import { onMounted, onUnmounted } from "vue";
   import { useDashboard } from "@/composables/useDashboard";
   import StatsCard from "@/components/ui/StatsCard.vue";
-  import SystemHealthCard from "./components/SystemHealthCard.vue";
-  import RecentActivityCard from "./components/RecentActivityCard.vue";
+  import SystemHealthCard from "@/components/dashboard/SystemHealthCard.vue";
+  import RecentActivityCard from "@/components/dashboard/RecentActivityCard.vue";
   import LastUpdated from "@/components/ui/LastUpdated.vue";
 
   const {

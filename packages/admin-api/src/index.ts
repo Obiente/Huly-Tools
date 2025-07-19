@@ -54,6 +54,76 @@ app.get("/health", (req, res) => {
 
 // API routes (with authentication)
 app.use("/api", authMiddleware);
+
+// Dashboard endpoint - Get combined dashboard data
+app.get("/api/dashboard", async (req, res, next) => {
+  try {
+    // Helper functions for dashboard
+    function formatUptime(seconds: number): string {
+      const days = Math.floor(seconds / 86400)
+      const hours = Math.floor((seconds % 86400) / 3600)
+      const minutes = Math.floor((seconds % 3600) / 60)
+      
+      if (days > 0) {
+        return `${days}d ${hours}h ${minutes}m`
+      } else if (hours > 0) {
+        return `${hours}h ${minutes}m`
+      } else {
+        return `${minutes}m`
+      }
+    }
+
+    function formatMemoryUsage(memory: any): string {
+      const usedMB = Math.round(memory.heapUsed / 1024 / 1024)
+      const totalMB = Math.round(memory.heapTotal / 1024 / 1024)
+      return `${usedMB}MB / ${totalMB}MB`
+    }
+
+    function formatStorageUsage(storageSize: number): string {
+      const sizeMB = Math.round(storageSize / 1024 / 1024)
+      return `${sizeMB}MB`
+    }
+
+    const [stats, backups, migrationStatus] = await Promise.all([
+      req.huly.getStats(),
+      req.huly.listBackups(),
+      req.huly.getMigrationStatus()
+    ])
+
+    // Get recent backups (last 5)
+    const recentBackups = backups
+      .sort((a, b) => b.createdOn - a.createdOn)
+      .slice(0, 5)
+
+    // Calculate system health
+    const memoryUsagePercent = (stats.memory.heapUsed / stats.memory.heapTotal) * 100
+    let systemStatus: 'healthy' | 'warning' | 'critical' = 'healthy'
+    
+    if (memoryUsagePercent > 90) {
+      systemStatus = 'critical'
+    } else if (memoryUsagePercent > 70) {
+      systemStatus = 'warning'
+    }
+
+    const systemHealth = {
+      status: systemStatus,
+      uptime: formatUptime(stats.uptime),
+      memoryUsage: formatMemoryUsage(stats.memory),
+      storageUsage: formatStorageUsage(stats.storageSize || 0),
+      memoryUsagePercent
+    }
+
+    res.json({
+      stats,
+      recentBackups,
+      systemHealth,
+      migrationStatus
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
 app.use("/api/accounts", accountsRouter);
 app.use("/api/workspaces", workspacesRouter);
 app.use("/api/backup", backupRouter);

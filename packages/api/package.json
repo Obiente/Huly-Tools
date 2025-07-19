@@ -2,14 +2,12 @@
   "name": "@huly-tools/api",
   "version": "1.0.0",
   "description": "Admin API service for Huly platform management",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/main.ts",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js",
-    "lint": "eslint src --ext .ts",
-    "clean": "rm -rf dist"
+    "deno": "deno",
+    "dev": "deno run --allow-net --allow-sys --allow-read --allow-env --env-file --watch src/main.ts",
+    "start": "deno run --allow-net --allow-sys --allow-read --allow-env --env-file src/main.ts",
+    "lint": "deno lint"
   },
   "dependencies": {
     "@hcengineering/client": "^0.7.147",
@@ -22,6 +20,7 @@
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "helmet": "^7.2.0",
+    "hono": "^4.8.5",
     "mongodb": "^6.10.0",
     "morgan": "^1.10.0"
   },
@@ -44,6 +43,5 @@
     "management",
     "platform"
   ],
-  "author": "Obiente",
-  "license": "MIT"
+  "author": "Obiente"
 }

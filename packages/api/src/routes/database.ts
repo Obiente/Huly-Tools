@@ -1,97 +1,91 @@
-import { Router } from 'express'
+import { Hono } from "hono";
+import { HulyConnection } from "../lib/hulyConnection.ts";
 
-const router: Router = Router()
+declare const hulyConnection: HulyConnection;
 
-// POST /api/db/migrate - Run database migrations
-router.post('/migrate', async (req, res, next) => {
+const db = new Hono();
+
+db.post("/migrate", async (c) => {
   try {
-    const result = await req.huly.runMigrations()
-    res.json(result)
+    const result = await hulyConnection.runMigrations();
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// GET /api/db/migration-status - Get migration status
-router.get('/migration-status', async (req, res, next) => {
+db.get("/migration-status", async (c) => {
   try {
-    const status = await req.huly.getMigrationStatus()
-    res.json(status)
+    const status = await hulyConnection.getMigrationStatus();
+    return c.json(status);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// POST /api/db/index - Rebuild indexes
-router.post('/index', async (req, res, next) => {
+db.post("/index", async (c) => {
   try {
-    const result = await req.huly.rebuildIndexes()
-    res.json(result)
+    const result = await hulyConnection.rebuildIndexes();
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// POST /api/db/index/create - Create essential indexes
-router.post('/index/create', async (req, res, next) => {
+db.post("/index/create", async (c) => {
   try {
-    const result = await req.huly.createEssentialIndexes()
-    res.json(result)
+    const result = await hulyConnection.createEssentialIndexes();
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// POST /api/db/index/recreate - Recreate all indexes
-router.post('/index/recreate', async (req, res, next) => {
+db.post("/index/recreate", async (c) => {
   try {
-    const result = await req.huly.recreateIndexes()
-    res.json(result)
+    const result = await hulyConnection.recreateIndexes();
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// POST /api/db/clean - Clean database
-router.post('/clean', async (req, res, next) => {
+db.post("/clean", async (c) => {
   try {
-    const result = await req.huly.cleanDatabase()
-    res.json(result)
+    const result = await hulyConnection.cleanDatabase();
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// POST /api/db/clean/workspace/:id - Clean specific workspace
-router.post('/clean/workspace/:id', async (req, res, next) => {
+db.post("/clean/workspace/:id", async (c) => {
   try {
-    const { id } = req.params
-    const result = await req.huly.cleanWorkspace(id)
-    res.json(result)
+    const id = c.req.param("id");
+    const result = await hulyConnection.cleanWorkspace(id);
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// GET /api/db/health - Check database health
-router.get('/health', async (req, res, next) => {
+db.get("/health", async (c) => {
   try {
-    const health = await req.huly.checkHealth()
-    res.json(health)
+    const health = await hulyConnection.checkHealth();
+    return c.json(health);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-// GET /api/db/collections/:dbName - Get collection info
-router.get('/collections/:dbName', async (req, res, next) => {
+db.get("/collections/:dbName", async (c) => {
   try {
-    const { dbName } = req.params
-    const collections = await req.huly.getCollectionInfo(dbName)
-    res.json(collections)
+    const dbName = c.req.param("dbName");
+    const collections = await hulyConnection.getCollectionInfo(dbName);
+    return c.json(collections);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-export { router as dbRouter }
+export default db;

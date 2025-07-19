@@ -1,5 +1,5 @@
 import type { Db } from 'mongodb'
-import type { DatabaseStats, DatabaseHealth, CollectionInfo } from '../../types/database'
+import type { DatabaseStats, DatabaseHealth, CollectionInfo } from '../../types/database.ts'
 
 /**
  * Database statistics and health monitoring operations

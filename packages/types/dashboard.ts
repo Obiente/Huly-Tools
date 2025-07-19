@@ -1,9 +1,6 @@
-export interface DashboardStats {
-  accounts: number;
-  workspaces: number;
-  backups: number;
-  storage: string;
-}
+import { Backup } from "./backup.ts";
+import { Stats } from "./stats.ts";
+
 
 export interface RecentActivity {
   id: string;
@@ -13,28 +10,7 @@ export interface RecentActivity {
   status: "success" | "warning" | "error";
 }
 
-export type MemoryStats = {
-  rss: number;
-  heapTotal: number;
-  heapUsed: number;
-  external: number;
-  arrayBuffers: number;
-};
 
-export type Stats = {
-  accounts: number;
-  workspaces: number;
-  backups: number;
-  uptime: number;
-  memory: MemoryStats;
-  timestamp: number;
-  storageSize: number;
-  indexSize: number;
-};
-
-export type Backup = {
-  // Define backup properties as needed
-};
 
 export type MigrationStatus = {
   currentVersion: string;

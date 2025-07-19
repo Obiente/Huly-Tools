@@ -1,5 +1,5 @@
 import type { Db } from 'mongodb'
-import type { MigrationResult } from '../../types/database'
+import type { MigrationResult } from '../../types/database.ts'
 
 /**
  * Database migration operations

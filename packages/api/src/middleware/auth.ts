@@ -1,20 +1,17 @@
-import { Request, Response, NextFunction } from 'express'
+import { MiddlewareHandler } from "hono";
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const apiKey = req.header('X-API-Key') || req.query.apiKey as string
-  const expectedApiKey = process.env.API_SECRET
+export const authMiddleware: MiddlewareHandler = async (c, next) => {
+  const apiKey = c.req.header("X-API-Key") || c.req.query("apiKey");
+  const expectedApiKey = Deno.env.get("API_SECRET");
 
   if (!expectedApiKey) {
-    return res.status(500).json({ error: 'API authentication not configured' })
+    return c.json({ error: "API authentication not configured" }, 500);
   }
-
   if (!apiKey) {
-    return res.status(401).json({ error: 'API key required' })
+    return c.json({ error: "API key required" }, 401);
   }
-
   if (apiKey !== expectedApiKey) {
-    return res.status(403).json({ error: 'Invalid API key' })
+    return c.json({ error: "Invalid API key" }, 403);
   }
-
-  next()
-}
+  await next();
+};

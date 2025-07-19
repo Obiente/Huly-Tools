@@ -1,24 +1,32 @@
-import { Request, Response, NextFunction } from 'express'
+import { MiddlewareHandler } from "hono";
 
-export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error('API Error:', err)
-
-  if (err.name === 'ValidationError') {
-    return res.status(400).json({
-      error: 'Validation failed',
-      details: err.message
-    })
+export const errorHandler: MiddlewareHandler = async (c, next) => {
+  try {
+    await next();
+  } catch (err: unknown) {
+    console.error("API Error:", err);
+    if (typeof err === "object" && err !== null) {
+      const errorObj = err as { name?: string; message?: string; code?: number };
+      if (errorObj.name === "ValidationError") {
+        return c.json({
+          error: "Validation failed",
+          details: errorObj.message,
+        }, 400);
+      }
+      if (errorObj.name === "MongoError" || errorObj.name === "MongoServerError") {
+        return c.json({
+          error: "Database error",
+          message: errorObj.code === 11000 ? "Duplicate entry" : "Database operation failed",
+        }, 500);
+      }
+      return c.json({
+        error: "Internal server error",
+        message: Deno.env.get("NODE_ENV") === "development" ? errorObj.message : "Something went wrong",
+      }, 500);
+    }
+    return c.json({
+      error: "Internal server error",
+      message: "Something went wrong",
+    }, 500);
   }
-
-  if (err.name === 'MongoError' || err.name === 'MongoServerError') {
-    return res.status(500).json({
-      error: 'Database error',
-      message: err.code === 11000 ? 'Duplicate entry' : 'Database operation failed'
-    })
-  }
-
-  res.status(500).json({
-    error: 'Internal server error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
-  })
-}
+};

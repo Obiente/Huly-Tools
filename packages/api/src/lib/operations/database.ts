@@ -1,9 +1,9 @@
-import { DatabaseConnection } from '../database/connection'
-import { DatabaseMonitor } from './database/monitor'
-import { DatabaseCleaner } from './database/cleaner'
-import { DatabaseIndexManager } from './database/indexes'
-import { DatabaseMigrator } from './database/migrator'
-import type { DatabaseStats, DatabaseHealth, MigrationResult, CleanupResult, IndexResult } from '../types/database'
+import { DatabaseConnection } from '../database/connection.ts'
+import { DatabaseMonitor } from './database/monitor.ts'
+import { DatabaseCleaner } from './database/cleaner.ts'
+import { DatabaseIndexManager } from './database/indexes.ts'
+import { DatabaseMigrator } from './database/migrator.ts'
+import type { DatabaseStats, DatabaseHealth, MigrationResult, CleanupResult, IndexResult } from '../types/database.ts'
 
 /**
  * Main database operations class that orchestrates all database management tasks

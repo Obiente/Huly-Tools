@@ -1,5 +1,5 @@
 import type { Db } from 'mongodb'
-import type { IndexResult } from '../../types/database'
+import type { IndexResult } from '../../types/database.ts'
 
 /**
  * Database index management operations

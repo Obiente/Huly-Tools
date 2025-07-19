@@ -1,4 +1,4 @@
-import { DatabaseConnection } from '../database/connection'
+import { DatabaseConnection } from '../database/connection.ts'
 import type { Account } from '@huly-tools/types'
 
 export class AccountOperations {

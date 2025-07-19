@@ -3,7 +3,7 @@
  * Based on the official Huly platform patterns
  */
 import { MongoClient, type Db } from 'mongodb'
-import { type HulyConfig } from './config'
+import { type HulyConfig } from './config.ts'
 
 export class MongoDBConnection {
   private client: MongoClient | null = null

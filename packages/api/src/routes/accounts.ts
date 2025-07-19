@@ -1,55 +1,56 @@
-import { Router } from 'express'
+import { Hono } from "hono";
+import { HulyConnection } from "../lib/hulyConnection.ts";
 
-const router: Router = Router()
+declare const hulyConnection: HulyConnection;
+
+const accounts = new Hono();
 
 // GET /api/accounts - List all accounts
-router.get('/', async (req, res, next) => {
+accounts.get("/", async (c) => {
   try {
-    const accounts = await req.huly.listAccounts()
-    res.json(accounts)
+    const result = await hulyConnection.listAccounts();
+    return c.json(result);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
 // POST /api/accounts - Create new account
-router.post('/', async (req, res, next) => {
+accounts.post("/", async (c) => {
   try {
-    const { email, first, last, password } = req.body
-    
+    const body = await c.req.json();
+    const { email, first, last, password } = body;
     if (!email || !first || !last || !password) {
-      return res.status(400).json({ error: 'Missing required fields' })
+      return c.json({ error: "Missing required fields" }, 400);
     }
-
-    const account = await req.huly.createAccount({ email, first, last, password })
-    res.status(201).json(account)
+    await hulyConnection.createAccount({ email, first, last, password });
+    return c.json({ success: true }, { status: 201 });
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
 // PUT /api/accounts/:id - Update account
-router.put('/:id', async (req, res, next) => {
+accounts.put("/:id", async (c) => {
   try {
-    const { id } = req.params
-    const updates = req.body
-    
-    const account = await req.huly.updateAccount(id, updates)
-    res.json(account)
+    const id = c.req.param("id");
+    const updates = await c.req.json();
+    const account = await hulyConnection.updateAccount(id, updates);
+    return c.json(account);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
 // DELETE /api/accounts/:id - Delete account
-router.delete('/:id', async (req, res, next) => {
+accounts.delete("/:id", async (c) => {
   try {
-    const { id } = req.params
-    await req.huly.deleteAccount(id)
-    res.status(204).send()
+    const id = c.req.param("id");
+    await hulyConnection.deleteAccount(id);
+    return c.body(null, 204);
   } catch (error) {
-    next(error)
+    return c.json({ error: String(error) }, 500);
   }
-})
+});
 
-export { router as accountsRouter }
+export default accounts;

@@ -1,5 +1,5 @@
 import type { Db } from 'mongodb'
-import type { CleanupResult } from '../../types/database'
+import type { CleanupResult } from '../../types/database.ts'
 
 /**
  * Database cleanup operations

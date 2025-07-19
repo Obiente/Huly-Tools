@@ -1,13 +1,3 @@
-export interface DatabaseStats {
-  accounts: number;
-  workspaces: number;
-  backups: number;
-  uptime: number;
-  memory: any;
-  timestamp: number;
-  storageSize?: number;
-  indexSize?: number;
-}
 
 export interface MigrationResult {
   success: boolean;

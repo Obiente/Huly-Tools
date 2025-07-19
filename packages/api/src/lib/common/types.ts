@@ -83,7 +83,7 @@ export interface Workspace {
     patch: number
   }
   region?: string
-  branding?: any
+  branding?: unknown
   accounts: AccountUuid[]
 }
 

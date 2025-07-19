@@ -1,9 +1,9 @@
 // Database and API types
-export * from './account';
-export * from './workspace';
-export * from './backup';
-export * from './stats';
-export * from './config';
-export * from './dashboard';
-export * from './database';
-export * from './api';
+export * from './account.ts';
+export * from './workspace.ts';
+export * from './backup.ts';
+export * from './stats.ts';
+export * from './config.ts';
+export * from './dashboard.ts';
+export * from './database.ts';
+export * from './api.ts';

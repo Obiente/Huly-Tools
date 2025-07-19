@@ -34,7 +34,8 @@ jobs:
           node-version: "22"
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
-          package-manager: pnpm
+      - name: pnpm-setup
+        uses: pnpm/action-setup@v2
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

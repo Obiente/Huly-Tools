@@ -1,24 +1,28 @@
 ---
-const { 
-  workspaces = [],
-  userWorkspaces = []
-} = Astro.props;
+const { workspaces = [], userWorkspaces = [] } = Astro.props;
 ---
 
 <p class="modal-description">Select workspaces this user has access to:</p>
 <div class="workspace-list">
-  {workspaces.map(workspace => (
-    <label class="workspace-item" for={`workspace-${workspace.id}`}>
-      <input 
-        type="checkbox" 
-        id={`workspace-${workspace.id}`}
-        name="workspaces" 
-        value={workspace.id}
-        checked={userWorkspaces.includes(workspace.name)}
-      />
-      <span class="workspace-name">{workspace.name}</span>
-    </label>
-  ))}
+  {
+    workspaces.map(
+      (workspace: {
+        id: string | number | string[] | null | undefined;
+        name: unknown;
+      }) => (
+        <label class="workspace-item" for={`workspace-${workspace.id}`}>
+          <input
+            type="checkbox"
+            id={`workspace-${workspace.id}`}
+            name="workspaces"
+            value={workspace.id}
+            checked={userWorkspaces.includes(workspace.name)}
+          />
+          <span class="workspace-name">{workspace.name}</span>
+        </label>
+      )
+    )
+  }
 </div>
 
 <style>

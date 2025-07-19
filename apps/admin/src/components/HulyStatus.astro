@@ -2,7 +2,7 @@
 
 const { status, variant } = Astro.props;
 
-const getVariantFromStatus = (status) => {
+const getVariantFromStatus = (status: string) => {
   const lowerStatus = status.toLowerCase();
   if (lowerStatus.includes('completed') || lowerStatus.includes('done')) return 'positive';
   if (lowerStatus.includes('progress') || lowerStatus.includes('active')) return 'warning';

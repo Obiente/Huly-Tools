@@ -1,95 +1,130 @@
-@import "tailwindcss";
-
-@theme {
-  /* Colors */
-  --color-primary: #23272f;
-  --color-primary-hover: #31343c;
-  --color-primary-pressed: #181a20;
-  --color-primary-focused: #23272f;
-  --color-accent: #f2994a;
-  --color-accent-hover: #f7b955;
-  --color-accent-pressed: #e68a00;
-  --color-panel: #1a1a28;
-  --color-navpanel: #14141f;
-  --color-navpanel-divider: rgba(255, 255, 255, 0.08);
-  --color-bg-primary: #f1f1f4;
-  --color-bg-secondary: #23272f;
-  --color-bg-tertiary: #181a20;
-  --color-bg-inverse: #ffffff;
-  --color-bg-overlay: rgba(0, 0, 0, 0.3);
-  --color-success: #05a05c;
-  --color-warning: #f2994a;
-  --color-error: #eb5757;
-  --color-link: #f2994a;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #23272f;
-  --color-gray-900: #181a20;
-
-  /* Border Radius */
-  --radius-min: 0.125rem;
-  --radius-xs: 0.25rem;
-  --radius-xs-focus: 0.375rem;
-  --radius-sm: 0.375rem;
-  --radius-sm-focus: 0.5rem;
-  --radius-md: 0.5rem;
-  --radius-md-focus: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-lg-focus: 1.125rem;
-  /* Shadow Properties */
-  --shadow-popover-blur: 0.75rem;
-  --shadow-popover-spread: 0;
-  --shadow-popover-x: 0;
-  --shadow-popover-y: 0.5rem;
-  --shadow-modal-blur: 1.5rem;
-  --shadow-modal-spread: 0.25rem;
-  --shadow-modal-x: 0;
-  --shadow-modal-y: 1.5rem;
-
-  /* Typography */
-  --font-sans:
-    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-
-  /* Radius */
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-
-  /* Shadow */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg:
-    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl:
-    0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-  /* Transition */
-  --ease-normal: cubic-bezier(0.4, 0, 0.2, 1);
+/* Theme utility classes that map to our design system */
+:root {
+  --color-bg-primary: #191724;
+  --color-bg-secondary: #1f1d2e;
+  --color-bg-tertiary: #26233a;
+  --color-bg-overlay: #6e6a86;
+  --color-bg-elevated: #393552;
+  --color-text-primary: #e0def4;
+  --color-text-secondary: #908caa;
+  --color-text-tertiary: #6e6a86;
+  --color-text-inverse: #191724;
+  --color-border-primary: #393552;
+  --color-border-secondary: #26233a;
+  --color-border-focus: #c4a7e7;
+  --color-interactive-primary: #c4a7e7;
+  --color-interactive-primary-hover: #c797fd;
+  --color-interactive-secondary: #393552;
+  --color-interactive-secondary-hover: #524f67;
+  --color-interactive-danger: #eb6f92;
+  --color-interactive-danger-hover: #f6c177;
+  --color-status-success: #9ccfd8;
+  --color-status-warning: #f6c177;
+  --color-status-error: #eb6f92;
+  --color-status-info: #c4a7e7;
+  --color-status-neutral: #908caa;
+  --color-accent-primary: #c4a7e7;
+  --color-accent-secondary: #9ccfd8;
+  --color-accent-tertiary: #31748f;
 }
 
-@layer base {
-  * {
-    box-sizing: border-box;
-  }
-  html {
-    font-family: var(--font-sans);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-bg-secondary);
-    color: var(--color-primary);
-    transition:
-      background-color 250ms var(--ease-normal),
-      color 250ms var(--ease-normal);
-  }
+@theme {
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-overlay: var(--color-bg-overlay);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-inverse: var(--color-text-inverse);
+
+  --color-border-primary: var(--color-border-primary);
+  --color-border-secondary: var(--color-border-secondary);
+  --color-border-focus: var(--color-border-focus);
+
+  --color-interactive-primary: var(--color-interactive-primary);
+  --color-interactive-primary-hover: var(--color-interactive-primary-hover);
+  --color-interactive-secondary: var(--color-interactive-secondary);
+  --color-interactive-secondary-hover: var(--color-interactive-secondary-hover);
+  --color-interactive-danger: var(--color-interactive-danger);
+  --color-interactive-danger-hover: var(--color-interactive-danger-hover);
+
+  --color-status-success: var(--color-status-success);
+  --color-status-warning: var(--color-status-warning);
+  --color-status-error: var(--color-status-error);
+  --color-status-info: var(--color-status-info);
+  --color-status-neutral: var(--color-status-neutral);
+
+  --color-accent-primary: var(--color-accent-primary);
+  --color-accent-secondary: var(--color-accent-secondary);
+  --color-accent-tertiary: var(--color-accent-tertiary);
+}
+
+@utility bg-* {
+  background-color: --value(--color-bg-*);
+}
+
+@utility text-* {
+  color: --value(--color-text-*);
+}
+
+@utility border-* {
+  border-color: --value(--color-border-*);
+}
+
+@utility bg-interactive-* {
+  background-color: --value(--color-interactive-*);
+}
+
+@utility text-interactive-* {
+  color: --value(--color-interactive-*);
+}
+
+@utility bg-status-* {
+  background-color: --value(--color-status-*);
+}
+
+@utility text-status-* {
+  color: --value(--color-status-*);
+}
+
+@utility bg-accent-* {
+  background-color: --value(--color-accent-*);
+}
+
+@utility text-accent-* {
+  color: --value(--color-accent-*);
+}
+
+/* Icon utilities */
+@utility icon-xs {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+@utility icon-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+@utility icon-md {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@utility icon-lg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@utility icon-xl {
+  width: 2rem;
+  height: 2rem;
+}
+
+@utility icon-2xl {
+  width: 2.5rem;
+  height: 2.5rem;
 }

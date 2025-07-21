@@ -7,10 +7,11 @@
     "paths": {
       "@/*": ["*"],
       "@components/*": ["components/*"],
+      "@ui/*": ["components/ui/*"],
       "@composables/*": ["composables/*"],
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"]
     },
     "jsx": "preserve"
-  },
+  }
 }
